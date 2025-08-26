@@ -6,7 +6,7 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: "*"
+        bundle_identifier: com.example.aiapp
       flutter: stable
       xcode: latest
       cocoapods: default
@@ -23,9 +23,10 @@ workflows:
     scripts:
       - name: Set up App Store Connect API auth
         script: |
-          echo "$APP_STORE_CONNECT_PRIVATE_KEY" > $CM_BUILD_DIR/AuthKey.p8
-          app-store-connect fetch-signing-files "*" \
+          echo "$APP_STORE_CONNECT_PRIVATE_KEY" | base64 -d > $CM_BUILD_DIR/AuthKey.p8
+          app-store-connect fetch-signing-files "com.example.aiapp" \
             --type IOS_APP_STORE \
+            --create-profile \
             --api-key-id $APP_STORE_CONNECT_KEY_IDENTIFIER \
             --issuer-id $APP_STORE_CONNECT_ISSUER_ID \
             --private-key @file:$CM_BUILD_DIR/AuthKey.p8
