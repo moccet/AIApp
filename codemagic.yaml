@@ -8,7 +8,7 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.moccet.app
+        bundle_identifier: 6YW9LUQSYU.com.moccet.app
       flutter: stable
       xcode: latest
       cocoapods: default
@@ -54,7 +54,7 @@ workflows:
         submit_to_app_store: false
       email:
         recipients:
-          - sofianyoussef@example.com  # Replace with your email
+          - sofian.b.y@hotmail.co.uk
         notify:
           success: true
           failure: true
