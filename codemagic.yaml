@@ -23,6 +23,16 @@ workflows:
         - pattern: 'release/*'
           include: true
     scripts:
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files \
+            $(xcode-project detect-bundle-id) \
+            --wildcard-bundle-id \
+            --type IOS_APP_STORE \
+            --create
+      - name: Set up code signing
+        script: |
+          xcode-project use-profiles
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
