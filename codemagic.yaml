@@ -3,8 +3,6 @@ workflows:
     name: iOS Workflow
     instance_type: mac_mini_m1
     max_build_duration: 60
-    integrations:
-      app_store_connect: codemagic
     environment:
       ios_signing:
         distribution_type: app_store
@@ -23,6 +21,14 @@ workflows:
         - pattern: 'release/*'
           include: true
     scripts:
+      - name: Set up App Store Connect API auth
+        script: |
+          echo "$APP_STORE_CONNECT_PRIVATE_KEY" > $CM_BUILD_DIR/AuthKey.p8
+          app-store-connect fetch-signing-files "*" \
+            --type IOS_APP_STORE \
+            --api-key-id $APP_STORE_CONNECT_KEY_IDENTIFIER \
+            --issuer-id $APP_STORE_CONNECT_ISSUER_ID \
+            --private-key @file:$CM_BUILD_DIR/AuthKey.p8
       - name: Set up local.properties
         script: |
           echo "flutter.sdk=$HOME/programs/flutter" > "$CM_BUILD_DIR/android/local.properties"
