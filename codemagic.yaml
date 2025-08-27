@@ -26,8 +26,7 @@ workflows:
       - name: Fetch signing files
         script: |
           app-store-connect fetch-signing-files \
-            $(xcode-project detect-bundle-id) \
-            --wildcard-bundle-id \
+            "com.thewellnesslondon.app" \
             --type IOS_APP_STORE \
             --create
       - name: Set up code signing
