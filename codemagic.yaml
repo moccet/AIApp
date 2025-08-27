@@ -9,6 +9,7 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.thewellnesslondon.app
+        create_profile: true
       flutter: stable
       xcode: latest
       cocoapods: default
